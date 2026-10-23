@@ -1,0 +1,199 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+@layer base {
+  body {
+    font-variant-numeric: tabular-nums;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.4;
+  }
+
+  :where(:lang(th)) {
+    line-height: 1.8;
+  }
+
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--ui-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  [data-ui-select] > select {
+    appearance: none;
+    cursor: pointer;
+  }
+
+  @supports (appearance: base-select) and selector(select::picker(select)) {
+    [data-ui-select] > select:not([multiple]):is(:not([size]), [size="0"], [size="1"]),
+    [data-ui-select] > select:not([multiple]):is(:not([size]), [size="0"], [size="1"])::picker(select) {
+      appearance: base-select;
+    }
+
+    [data-ui-select] > select {
+      align-items: center;
+    }
+
+    [data-ui-select] > select::picker-icon {
+      display: none;
+    }
+
+    [data-ui-select] > select:open ~ svg:last-child {
+      transform: rotate(180deg);
+    }
+
+    [data-ui-select] > select::picker(select) {
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+      min-inline-size: anchor-size(self-inline);
+      max-inline-size: calc(100vw - 2rem);
+      max-block-size: min(20rem, 50dvh);
+      margin-block: 6px;
+      padding: 4px;
+      overflow: auto;
+      overscroll-behavior: contain;
+      border: 1px solid var(--ui-border-strong);
+      border-radius: var(--ui-radius-lg);
+      background: var(--ui-surface-raised);
+      color: var(--ui-foreground);
+      box-shadow: var(--ui-shadow-overlay);
+      font: inherit;
+      scrollbar-width: thin;
+    }
+
+    [data-ui-select] > select option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-block-size: 40px;
+      padding: 8px 12px;
+      border-radius: var(--ui-radius-md);
+      background: var(--ui-surface);
+      color: var(--ui-foreground);
+      font-size: var(--ui-text-body);
+      line-height: var(--ui-leading-body);
+      white-space: normal;
+      overflow-wrap: anywhere;
+      cursor: pointer;
+    }
+
+    [data-ui-select] > select option:checked {
+      background: var(--ui-nav-active);
+      color: var(--ui-nav-active-foreground);
+      font-weight: 500;
+    }
+
+    [data-ui-select] > select option:not(:disabled):is(:hover, :focus) {
+      outline: none;
+      background: var(--ui-nav-active);
+      color: var(--ui-nav-active-foreground);
+    }
+
+    [data-ui-select] > select option::checkmark {
+      order: 1;
+      margin-inline-start: auto;
+      color: var(--ui-primary);
+    }
+
+    [data-ui-select] > select option:disabled {
+      color: var(--ui-disabled-foreground);
+      cursor: not-allowed;
+    }
+
+    [data-ui-select] > select optgroup {
+      padding: 4px;
+      color: var(--ui-muted-foreground);
+      font-size: var(--ui-text-small);
+      font-weight: 500;
+    }
+  }
+}
+
+@layer utilities {
+  [data-ui-select] > select:open {
+    border-color: var(--ui-primary);
+  }
+
+  [data-ui-select] > select[aria-invalid="true"]:open {
+    border-color: var(--ui-danger-foreground);
+  }
+
+  .ui-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .animate-ui-fade {
+    animation: ui-fade var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  .animate-ui-dialog {
+    animation: ui-dialog var(--ui-duration-base) var(--ui-ease-out);
+  }
+
+  .animate-ui-sheet {
+    animation: ui-sheet var(--ui-duration-slow) var(--ui-ease-out);
+  }
+
+  .animate-ui-toast {
+    animation: ui-toast var(--ui-duration-base) var(--ui-ease-out);
+  }
+}
+
+@keyframes ui-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ui-dialog {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ui-sheet {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ui-toast {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ui-fade,
+  .animate-ui-dialog,
+  .animate-ui-sheet,
+  .animate-ui-toast {
+    animation: none;
+  }
+}

@@ -1,0 +1,1 @@
+ALTER TYPE "public"."idempotency_scope" ADD VALUE 'OWNER_ASSIGN';

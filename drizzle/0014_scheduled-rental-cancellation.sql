@@ -1,0 +1,1 @@
+ALTER TYPE "public"."rental_state" ADD VALUE 'CANCELLED';

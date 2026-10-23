@@ -1,0 +1,1 @@
+ALTER TABLE "chat_message" ADD COLUMN "sender_snapshot" jsonb DEFAULT '{}'::jsonb NOT NULL;
